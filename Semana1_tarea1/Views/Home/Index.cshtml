@@ -1,0 +1,61 @@
+@model CalculadoraViewModel
+
+@{
+    ViewData["Title"] = "Web Personal";
+}
+
+<section class="tarjeta">
+    <div class="perfil">
+        <h1>Juan Pablo Morales / 6to Semestre UniAndes</h1>
+        <h2>Desarrollador de soluciones web</h2>
+
+        <p><strong>Ciudad:</strong> Ecuador</p>
+        <p><strong>Correo:</strong> juanmm10@uniandes.edu.ec</p>
+        <p><strong>Teléfono:</strong> 0982638384</p>
+    </div>
+
+    <div class="calculadora">
+        <h2>Calculadora</h2>
+
+        <form asp-controller="Home" asp-action="Index" method="post" class="formulario-calculadora">
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly" class="mensaje-error"></div>
+
+            <div class="grupo-campo">
+                <label asp-for="Numero1"></label>
+                <input asp-for="Numero1" type="number" step="any" />
+                <span asp-validation-for="Numero1" class="mensaje-error"></span>
+            </div>
+
+            <div class="grupo-campo">
+                <label asp-for="Numero2"></label>
+                <input asp-for="Numero2" type="number" step="any" />
+                <span asp-validation-for="Numero2" class="mensaje-error"></span>
+            </div>
+
+            <div class="grupo-campo">
+                <label asp-for="Operacion"></label>
+                <select asp-for="Operacion">
+                    <option value="Sumar">Sumar</option>
+                    <option value="Restar">Restar</option>
+                    <option value="Multiplicar">Multiplicar</option>
+                    <option value="Dividir">Dividir</option>
+                </select>
+            </div>
+
+            <button type="submit">Calcular</button>
+        </form>
+
+        <div class="resultado">
+            @if (!string.IsNullOrWhiteSpace(Model.ResultadoTexto))
+            {
+                <p><strong>Resultado:</strong> @Model.ResultadoTexto</p>
+            }
+            else
+            {
+                <p><strong>Resultado:</strong> -</p>
+            }
+        </div>
+    </div>
+</section>
